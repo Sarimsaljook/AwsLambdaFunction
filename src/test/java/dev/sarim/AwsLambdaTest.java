@@ -1,16 +1,36 @@
 package dev.sarim;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AwsLambdaTest {
 
-
     @Test
-    public void shouldReturnHelloMessage() {
+    public void shouldReturnDynamoData() {
         var sut = new AwsLamda();
-        assertEquals("Hello, AWS Lambda!", sut.handleRequest());
-    }
 
+        String testID = "70";
+
+        // Create a sample event
+        Map<String, Object> event = new HashMap<>();
+        Map<String, String> pathParameters = new HashMap<>();
+        pathParameters.put("id", testID);
+        event.put("routeKey", "GET /");
+        event.put("pathParameters", pathParameters);
+
+        // Invoke the Lambda function
+        String result = sut.handleRequest(event);
+
+        // Assert the result
+        assertEquals("{\"statusCode\": 200, \"body\": \"{\"id\":\""+testID+"\"}\", \"headers\": {Content-Type=application/json}}", result);
+        System.out.println(result);
+
+        if(result.equals("{\"statusCode\": 200, \"body\": \"{\"id\":\""+testID+"\"}\", \"headers\": {Content-Type=application/json}}")) {
+            System.out.println("Test Case 1 Passed!");
+        }
+    }
 }
