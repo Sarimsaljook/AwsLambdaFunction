@@ -19,7 +19,7 @@ public class AwsLambdaTest {
         Map<String, Object> event = new HashMap<>();
         Map<String, String> pathParameters = new HashMap<>();
         pathParameters.put("id", testID);
-        event.put("routeKey", "GET /");
+        event.put("routeKey", "POST /");
         event.put("pathParameters", pathParameters);
 
         // Invoke the Lambda function

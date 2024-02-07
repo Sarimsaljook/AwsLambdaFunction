@@ -26,7 +26,7 @@ public class AwsLamda {
         headers.put("Content-Type", "application/json");
 
         try {
-            if (event.containsKey("routeKey") && event.get("routeKey").equals("GET /")) {
+            if (event.containsKey("routeKey") && event.get("routeKey").equals("POST /")) {
                 String id = ((Map<String, String>) event.get("pathParameters")).get("id");
 
                 AWSCredentialsProvider credentials = new AWSCredentialsProvider() {
